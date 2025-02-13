@@ -22,8 +22,8 @@
             align-items: center;
             background: linear-gradient(135deg, #ffd6e0 0%, #ffecf2 50%, #ffe0e9 100%);
             font-family: 'Prompt', sans-serif;
-            overflow: hidden;
             position: relative;
+            padding: 2rem 0;
         }
 
         .background-hearts {
@@ -36,8 +36,8 @@
 
         .card {
             background: rgba(255, 255, 255, 0.92);
-            padding: 3rem;
-            border-radius: 2.5rem;
+            padding: 2rem;
+            border-radius: 2rem;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1),
                         0 0 40px rgba(255, 182, 193, 0.3);
             text-align: center;
@@ -50,6 +50,50 @@
             z-index: 1;
             backdrop-filter: blur(10px);
             border: 2px solid rgba(255, 255, 255, 0.8);
+            margin: 1rem;
+        }
+
+        @media (max-width: 480px) {
+            .card {
+                padding: 1.5rem;
+                width: 95%;
+                margin: 0.5rem;
+            }
+
+            h1 {
+                font-size: 2rem !important;
+            }
+
+            h2 {
+                font-size: 1.5rem !important;
+            }
+
+            p {
+                font-size: 1.2rem !important;
+                line-height: 1.6 !important;
+            }
+
+            .message {
+                font-size: 1.3rem !important;
+                padding: 1rem !important;
+            }
+
+            .heart-icon {
+                font-size: 3.5rem !important;
+            }
+
+            .ribbon {
+                width: 120px;
+                height: 120px;
+            }
+
+            .ribbon-content {
+                width: 180px;
+                padding: 10px 0;
+                font-size: 0.8rem;
+                right: -20px;
+                top: 25px;
+            }
         }
 
         .card:hover {
@@ -115,7 +159,7 @@
         }
 
         .floating-heart {
-            position: absolute;
+            position: fixed;
             color: #ff4081;
             font-size: 1.2rem;
             pointer-events: none;
@@ -126,7 +170,7 @@
 
         @keyframes pulse {
             0% { transform: scale(1); }
-            50% { transform: scale(1.2); filter: drop-shadow(0 8px 16px rgba(255, 64, 129, 0.5)); }
+            50% { transform: scale(1.2); }
             100% { transform: scale(1); }
         }
 
@@ -274,79 +318,80 @@
         </div>
         <div id="open-state" style="display: none;">
             <h1>สุขสันต์วันวาเลนไทน์</h1>
-            <p>ขอบคุณที่เป็นคนพิเศษในชีวิตของฉัน<br>รักเธอที่สุดเลย ♥</p>
-            <div class="message">"รักของเราจะหวานชื่นและงดงามเสมอ"</div>
+            <p>ขอบคุณที่ตอบแชทเค้าวันนั้นนะเค้ามีความสุขมากๆเลยไม่คิดเลยว่าแค่แอพๆนึงจะทำให้เราได้มาอยู่ด้วยกัน หลังจากนี้เค้าขอฝากเนื้อฝากตัวด้วยนะ เค้าจะดูแลเธอให้ดีที่สุดจะรักษาไม่ให้เธอเสียใจเหมือนที่เธอเคยเจอที่ผ่านๆมาเค้าจะไม่ทำให้เธอผิดหวังแน่นอน<br>รักเธอที่สุดเลย ♥</p>
+            <div class="message">"อยู่ด้วยกันทุกเทศกาลตลอดไปนะ"</div>
             <i class="fas fa-heart heart-icon bounce"></i>
         </div>
     </div>
-
     <script>
-        const card = document.getElementById('card');
-        const closedState = document.getElementById('closed-state');
-        const openState = document.getElementById('open-state');
-        const backgroundHearts = document.querySelector('.background-hearts');
+      const card = document.getElementById('card');
+const closedState = document.getElementById('closed-state');
+const openState = document.getElementById('open-state');
+const backgroundHearts = document.querySelector('.background-hearts');
 
-        function createBackgroundHeart() {
-            const heart = document.createElement('i');
-            heart.className = 'fas fa-heart floating-heart';
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = 3 + Math.random() * 4 + 's';
-            heart.style.opacity = 0.1 + Math.random() * 0.3;
-            heart.style.fontSize = 0.5 + Math.random() * 1 + 'rem';
-            heart.style.color = `hsl(${340 + Math.random() * 40}, ${90 + Math.random() * 10}%, ${60 + Math.random() * 10}%)`;
-            backgroundHearts.appendChild(heart);
-            
-            heart.addEventListener('animationend', () => {
-                heart.remove();
-            });
-        }
+function createBackgroundHeart() {
+    const heart = document.createElement('i');
+    heart.className = 'fas fa-heart floating-heart';
+    heart.style.left = Math.random() * 100 + 'vw';
+    heart.style.animationDuration = 3 + Math.random() * 4 + 's';
+    heart.style.opacity = 0.1 + Math.random() * 0.3;
+    heart.style.fontSize = 0.5 + Math.random() * 1 + 'rem';
+    heart.style.color = `hsl(${340 + Math.random() * 40}, ${90 + Math.random() * 10}%, ${60 + Math.random() * 10}%)`;
+    backgroundHearts.appendChild(heart);
+    
+    heart.addEventListener('animationend', () => {
+        heart.remove();
+    });
+}
 
-        function createSparkles(element) {
-            const sparklesContainer = document.createElement('div');
-            sparklesContainer.className = 'sparkles';
-            
-            for (let i = 0; i < 8; i++) {
-                const sparkle = document.createElement('div');
-                sparkle.className = 'sparkle';
-                sparkle.style.left = Math.random() * 100 + '%';
-                sparkle.style.top = Math.random() * 100 + '%';
-                sparkle.style.animationDelay = Math.random() * 2 + 's';
-                sparklesContainer.appendChild(sparkle);
-            }
-            
-            element.appendChild(sparklesContainer);
-        }
+function createSparkles(element) {
+    const sparklesContainer = document.createElement('div');
+    sparklesContainer.className = 'sparkles';
+    
+    for (let i = 0; i < 8; i++) {
+        const sparkle = document.createElement('div');
+        sparkle.className = 'sparkle';
+        sparkle.style.left = Math.random() * 100 + '%';
+        sparkle.style.top = Math.random() * 100 + '%';
+        sparkle.style.animationDelay = Math.random() * 2 + 's';
+        sparklesContainer.appendChild(sparkle);
+    }
+    
+    element.appendChild(sparklesContainer);
+}
 
-        function createFloatingHeart() {
-            const heart = document.createElement('i');
-            heart.className = 'fas fa-heart floating-heart';
-            heart.style.left = Math.random() * 100 + '%';
-            heart.style.color = `hsl(${340 + Math.random() * 40}, 100%, ${60 + Math.random() * 10}%)`;
-            document.body.appendChild(heart);
-            
-            heart.addEventListener('animationend', () => {
-                heart.remove();
-            });
-        }
+function createFloatingHeart() {
+    const heart = document.createElement('i');
+    heart.className = 'fas fa-heart floating-heart';
+    heart.style.left = Math.random() * 100 + '%';
+    heart.style.color = `hsl(${340 + Math.random() * 40}, 100%, ${60 + Math.random() * 10}%)`;
+    document.body.appendChild(heart);
+    
+    heart.addEventListener('animationend', () => {
+        heart.remove();
+    });
+}
 
-        setInterval(createBackgroundHeart, 800);
+function createMultipleHearts() {
+    for (let i = 0; i < 25; i++) {
+        setTimeout(createFloatingHeart, i * 120);
+    }
+}
 
-        function createMultipleHearts() {
-            for (let i = 0; i < 25; i++) {
-                setTimeout(createFloatingHeart, i * 120);
-            }
-        }
+// สร้างหัวใจพื้นหลังทุกๆ 800ms
+setInterval(createBackgroundHeart, 800);
 
-        card.addEventListener('click', function() {
-            if (closedState.style.display !== 'none') {
-                closedState.style.display = 'none';
-                openState.style.display = 'block';
-                card.classList.add('open');
-                createMultipleHearts();
-                createSparkles(card);
-                setInterval(createMultipleHearts, 4000);
-            }
-        });
+// เมื่อคลิกที่การ์ด
+card.addEventListener('click', function() {
+    if (closedState.style.display !== 'none') {
+        closedState.style.display = 'none';
+        openState.style.display = 'block';
+        card.classList.add('open');
+        createMultipleHearts();
+        createSparkles(card);
+        // สร้างหัวใจหลายๆ ดวงทุก 4 วินาที
+        setInterval(createMultipleHearts, 4000);
+    }
+});
+
     </script>
-</body>
-</html>
